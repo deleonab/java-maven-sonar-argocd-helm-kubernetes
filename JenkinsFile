@@ -1,24 +1,41 @@
 pipeline {
-  agent {
-    docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+  agent any 
+  tools {
+    maven 'maven'
     }
-  }
   stages {
     stage('Checkout') {
       steps {
         sh 'echo passed'
+        // checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git']]])
         //git branch: 'main', url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git'
       }
     }
-    stage('Build and Test') {
+    stage('Build Artifact') {
       steps {
         sh 'ls -ltr'
         // build the project and create a JAR file
-        sh 'mvn clean package'
+        sh 'mvn clean install'
       }
     }
+
+    stage('Unit Test') {
+      steps {
+        
+        // build the project and create a JAR file
+        sh 'mvn test'
+      }
+    }
+
+
+    stage('Integration Test') {
+      steps {
+        
+        // build the project and create a JAR file
+        sh 'mvn test'
+      }
+    }
+
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://34.201.116.83:9000"

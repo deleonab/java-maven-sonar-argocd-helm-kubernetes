@@ -1,6 +1,8 @@
 pipeline {
   agent any 
-  
+ tools {
+    maven 'maven'
+    } 
   stages {
     stage('Checkout') {
     environment {
@@ -12,6 +14,29 @@ pipeline {
         git branch: 'main', credentialsId: GIT_CREDENTIALS, url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git'
       }
     }
-    
+  stage('Build Artifact') {
+      steps {
+        sh 'ls -ltr'
+        // build the project and create a JAR file
+        sh 'mvn clean install'
+      }
+    }
+
+    stage('Unit Test') {
+      steps {
+        
+        // build the project and create a JAR file
+        sh 'mvn test'
+      }
+    }
+
+
+    stage('Integration Test') {
+      steps {
+        
+        // build the project and create a JAR file
+        sh 'mvn test'
+      }
+    }  
   }
 }

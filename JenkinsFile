@@ -11,7 +11,7 @@ pipeline {
       steps {
         sh 'echo passed'
         
-        git credentials: GIT_CREDENTIALS, git branch: 'main', url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git'
+        git credentials: GIT_CREDENTIALS, url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git'
       }
     }
     

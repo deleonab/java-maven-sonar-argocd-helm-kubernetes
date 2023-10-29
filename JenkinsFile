@@ -38,5 +38,19 @@ pipeline {
         sh 'mvn test'
       }
     }  
+
+    stage('Static Code Analysis') {
+      environment {
+        SONAR_URL = "http://http://52.54.159.242/:9000"
+        SONARQUBE_TOKEN = credentials('sonarQube_jenkins')
+    
+
+      }
+      steps {
+        script {
+          sh 'mvn sonar:sonar -Dsonar.login=$SONARQUBE_TOKEN -Dsonar.host.url=${SONAR_URL}'
+        }
+      }
+    }
   }
 }

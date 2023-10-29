@@ -1,8 +1,6 @@
 pipeline {
   agent any 
-  tools {
-    maven 'maven'
-    }
+  
   stages {
     stage('Checkout') {
     environment {
@@ -11,7 +9,7 @@ pipeline {
       steps {
         sh 'echo passed'
         
-        git credentials: GIT_CREDENTIALS, url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git'
+        git branch: 'main', credentialsId: GIT_CREDENTIALS, url: 'https://github.com/deleonab/java-maven-sonar-argocd-helm-kubernetes.git'
       }
     }
     

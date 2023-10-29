@@ -41,7 +41,7 @@ pipeline {
 
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://52.54.159.242/:9000"
+        SONAR_URL = "http://52.54.159.242:9000"
         SONARQUBE_TOKEN = credentials('sonarQube_jenkins')
     
 

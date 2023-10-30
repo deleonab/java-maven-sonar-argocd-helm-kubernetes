@@ -68,6 +68,28 @@ pipeline {
         }
       }
     }
+
+
+stage('Update Deployment File') {
+        environment {
+            GIT_REPO_NAME = "java-maven-sonar-argocd-helm-kubernetes"
+            GIT_USER_NAME = "deleonab"
+        }
+        steps {
+            withCredentials([string(credentialsId: 'github_token', variable: 'github_token')]) {
+                sh '''
+                    git config user.email "delesodade@hotmail.com"
+                    git config user.name "Dele Onabowu"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
+                    git add spring-boot-app-manifests/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${github_token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+            }
+        }
+    }
+
     }
   }
 

@@ -76,7 +76,9 @@ stage('Update Deployment File') {
             GIT_USER_NAME = "deleonab"
         }
         steps {
-            withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) {
+            //withCredentials([string(credentialsId: 'github-token', variable: 'github-token')]) 
+              withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'github-token')])
+            {
                 sh '''
                     git config user.email "delesodade@hotmail.com"
                     git config user.name "Dele Onabowu"
@@ -92,4 +94,7 @@ stage('Update Deployment File') {
 
     }
   }
+
+//withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'github-token')]) {
+    // Use the credentials in your Git URL or other operations
 

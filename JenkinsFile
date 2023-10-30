@@ -76,7 +76,7 @@ stage('Update Deployment File') {
             GIT_USER_NAME = "deleonab"
         }
         steps {
-            withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) 
+            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) 
               //withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'github-token')])
             {
                 sh '''
@@ -86,7 +86,7 @@ stage('Update Deployment File') {
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
                     git add spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${github-token}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                 '''
             }
         }

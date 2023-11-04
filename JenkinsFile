@@ -41,7 +41,7 @@ pipeline {
 
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://23.23.236.172/:9000"
+        SONAR_URL = "http://http://23.23.236.172/:9000"
         SONARQUBE_TOKEN = credentials('SONARQUBE_JENKINS')
     
 
@@ -91,11 +91,11 @@ stage('Update Deployment File') {
             }
         }
     }
-
+*/
     }
+    
   }
 
 //withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'github-token')]) {
     // Use the credentials in your Git URL or other operations
 
-*/

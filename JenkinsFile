@@ -69,7 +69,7 @@ pipeline {
       }
     }
 
-
+/*
 stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "java-maven-sonar-argocd-helm-kubernetes"
@@ -98,3 +98,4 @@ stage('Update Deployment File') {
 //withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'github-token')]) {
     // Use the credentials in your Git URL or other operations
 
+*/
